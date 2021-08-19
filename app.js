@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
-var testRouter = require('./toutes/test');
+var testRouter = require('./routes/test');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
