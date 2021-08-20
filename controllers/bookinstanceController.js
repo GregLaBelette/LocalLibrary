@@ -1,4 +1,4 @@
-var BookInstance = require('../models/bookinstance');
+var BookInstance = require('../models/bookinstanceModel');
 
 // Display list of all BookInstances.
 exports.bookinstance_list = function(req, res, next) {

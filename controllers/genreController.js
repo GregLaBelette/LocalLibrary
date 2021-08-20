@@ -1,5 +1,5 @@
-var Genre = require('../models/genre');
-var Book = require('../models/book');
+var Genre = require('../models/genreModel');
+var Book = require('../models/bookModel');
 
 var async = require('async');
 
