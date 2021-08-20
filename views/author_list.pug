@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	h1= title
+
+	ul
+		each author in author_list
+			li
+				if !author.date_of_birth
+					a(href=author.url) #{author.name} 
+					| Life dates not provided
+
+				else
+					if author.date_of_death
+						a(href=author.url) #{author.name} 
+						| (#{author.date_of_birth_formatted} - #{author.date_of_death_formatted})
+
+					else
+						a(href=author.url) #{author.name} 
+						| (#{author.date_of_birth_formatted} - Still living)
+
+		else
+			li There are no authors.
