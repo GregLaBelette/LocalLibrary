@@ -19,3 +19,8 @@ a:hover {
 li {
     list-style:  none;
 }
+
+ul {
+    padding: 0px;
+    line-height: 2em;
+}
