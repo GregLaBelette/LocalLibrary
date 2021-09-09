@@ -18,3 +18,7 @@ block content
 
   if bookinstance.status!='Available'
     p #[strong Due back:] #{bookinstance.due_back_formatted}
+
+  hr
+  a.btn.btn-primary(href=bookinstance.url+'/update') Update copy
+  a.btn.btn-danger(href=bookinstance.url+'/delete') Delete copy

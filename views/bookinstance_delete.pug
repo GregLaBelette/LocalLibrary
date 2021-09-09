@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1 #{title}: #{bookinstance._id}
+
+  p #[strong Book: ] 
+    a(href=bookinstance.book.url) #{bookinstance.book.title}
+  p #[strong Imprint: ] #{bookinstance.imprint}
+
+  p #[strong Status:] 
+    if bookinstance.status=='Available'
+      span.text-success #{bookinstance.status}
+    else if bookinstance.status=='Maintenance'
+      span.text-danger #{bookinstance.status}
+    else
+      span.text-warning #{bookinstance.status}
+
+  if bookinstance.status!='Available'
+    p #[strong Due back:] #{bookinstance.due_back_formatted}
+
+  hr
+
+  p Do you really want to delete this Copy?
+
+  form(method='POST' action='')
+    div.form-group
+      input#booksinstanceid.form-control(type='hidden', name='bookinstanceid', required='true', value=bookinstance._id )
+
+      input#book.form-control(type='hidden', name='book', required='true', value=bookinstance.book._id )
+
+    button.btn.btn-danger(type='submit') Delete
