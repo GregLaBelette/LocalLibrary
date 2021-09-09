@@ -3,6 +3,10 @@ extends layout
 block content
 	h1= title
 
+	a.btn.btn-primary(href="/catalog/genre/create") Create new genre
+
+	hr
+
 	ul
 		each genre in genre_list
 			li

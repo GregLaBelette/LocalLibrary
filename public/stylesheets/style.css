@@ -7,3 +7,15 @@
 .btn {
     margin:  10px 10px 10px 0px;
 }
+
+.sidebar-nav .btn {
+    width: 100%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+li {
+    list-style:  none;
+}

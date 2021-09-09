@@ -15,25 +15,16 @@ html(lang='en')
           block sidebar
             ul(class='sidebar-nav')
               li
-                a(href='/catalog') Home
+                a.btn.btn-info(href='/catalog') Home
               li
-                a(href='/catalog/books') All books
+                a.btn.btn-dark(href='/catalog/books') Books
               li
-                a(href='/catalog/authors') All authors
+                a.btn.btn-dark(href='/catalog/authors') Authors
               li
-                a(href='/catalog/genres') All genres
+                a.btn.btn-dark(href='/catalog/genres') Genres
               li
-                a(href='/catalog/bookinstances') All copies
-              li
-                hr
-              li
-                a(href='/catalog/author/create') Create new author
-              li
-                a(href='/catalog/genre/create') Create new genre
-              li
-                a(href='/catalog/book/create') Create new book
-              li
-                a(href='/catalog/bookinstance/create') Create new copy
+                a.btn.btn-dark(href='/catalog/bookinstances') Copies
 
         div(class='col-sm-10')
+          br
           block content

@@ -3,6 +3,10 @@ extends layout
 block content
 	h1= title
 
+	a.btn.btn-primary(href="/catalog/author/create") Create new author
+
+	hr
+
 	ul
 		each author in author_list
 			li

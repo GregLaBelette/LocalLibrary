@@ -3,6 +3,10 @@ extends layout
 block content
   h1= title
 
+  a.btn.btn-primary(href="/catalog/bookinstance/create") Create new copy
+
+  hr
+
   ul
     - bookinstance_list.sort(function(a, b) {let textA = a.book.title.toUpperCase(); let textB = b.book.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
     each val in bookinstance_list
