@@ -158,11 +158,66 @@ exports.author_delete_post = function(req, res, next) {
 };
 
 // Display Author update form on GET.
-exports.author_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Author update GET');
+exports.author_update_get = function(req, res, next) {
+
+    Author.findById(req.params.id)
+    .exec(function(err,author) {
+        if (err) {return next(err)}
+        if (author==null) {
+            var err = new Error('Author not found');
+            err.status = 404;
+            return next(err);
+        }
+        //Success, render
+        res.render('author_form', {title: 'Udpate Author', author:author});
+    })
 };
 
 // Handle Author update on POST.
-exports.author_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Author update POST');
-};
+exports.author_update_post = [
+
+    //Validate and sainitise fields
+    body('first_name', 'Please provide first name').trim().isLength({ min: 1}).escape(),
+    body('family_name', 'Please provide family name').trim().isLength({ min: 1}).escape(),
+    body('date_of_birth').trim().escape(),
+    body('date_of_death').trim().escape(),
+
+    //process request after validation and sanitization.
+    (req, res, next) => {
+
+        //Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        //Create an Author object with escape / trimmed data & old ID
+        var author = new Author(
+            {
+                first_name: req.body.first_name,
+                family_name: req.body.family_name,
+                date_of_birth: req.body.date_of_birth,
+                date_of_death: req.body.date_of_death,
+                _id:req.params.id // ID required in order not to assign a new one!
+            });
+
+        if (!errors.isEmpty()) {
+
+            //In case of errors, re-render with sanitized values & error messages
+            Author.findById(req.params.id)
+            .exec(function (err,author) {
+                if (err) { return next(err); }
+                res.render('author_form', {title: 'Update Author', author: author, errors: errors.array()});
+            });
+            return;
+        }
+        else {
+
+            //Data from form is valid, Update the record.
+            Author.findByIdAndUpdate(req.params.id, author, {}, function (err, theAuthor) {
+                if (err) { return next(err); }
+
+                //Successful - redirect to Author detail page,
+                res.redirect(theAuthor.url);
+            });
+        }
+    }
+
+];

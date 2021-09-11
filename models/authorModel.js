@@ -19,18 +19,32 @@ AuthorSchema
   return this.family_name + ', ' + this.first_name;
 });
 
-// Virtual for authors's date of birth formatting
+// Virtual for authors's date of birth formatting, reader friendly
 AuthorSchema
 .virtual('date_of_birth_formatted')
 .get(function () {
   return DateTime.fromJSDate(this.date_of_birth).setLocale('en-UK').toLocaleString(DateTime.DATE_MED);
 });
 
-// Virtual for authors's date of death formatting
+// Virtual for authors's date of birth formatting, datepicker friendly
+AuthorSchema
+.virtual('date_of_birth_datepickerfriendly')
+.get(function () {
+  return DateTime.fromJSDate(this.date_of_birth).toFormat('yyyy-MM-dd');
+});
+
+// Virtual for authors's date of death formatting, reader friendly
 AuthorSchema
 .virtual('date_of_death_formatted')
 .get(function () {
   return DateTime.fromJSDate(this.date_of_death).setLocale('en-UK').toLocaleString(DateTime.DATE_MED);
+});
+
+// Virtual for authors's date of death formatting, datepicker friendly
+AuthorSchema
+.virtual('date_of_death_datepickerfriendly')
+.get(function () {
+  return DateTime.fromJSDate(this.date_of_death).toFormat('yyyy-MM-dd');
 });
 
 // Virtual for author's lifespan

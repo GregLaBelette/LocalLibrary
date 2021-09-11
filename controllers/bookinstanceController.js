@@ -1,7 +1,8 @@
 var BookInstance = require('../models/bookinstanceModel');
 var Book = require('../models/bookModel.js');
-
 const { body, validationResult} = require('express-validator');
+
+var async = require('async');
 
 // Display list of all BookInstances.
 exports.bookinstance_list = function(req, res, next) {
@@ -122,11 +123,84 @@ exports.bookinstance_delete_post = function(req, res, next) {
 };
 
 // Display BookInstance update form on GET.
-exports.bookinstance_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: BookInstance update GET');
+exports.bookinstance_update_get = function(req, res, next) {
+
+    //Get book instance and books from form 
+    async.parallel({
+        bookinstance: function(callback) {
+            BookInstance.findById(req.params.id).populate('book').exec(callback);
+        },
+        books: function(callback) {
+            Book.find(callback);
+        },
+        }, function (err, results) {
+            if (err) {return next(err); }
+            if (results.bookinstance == null) { //No results
+                var err = new Error('Copy not found');
+                err.status = 404;
+                return next(err);
+            }
+            //Success
+            res.render('bookinstance_form', {title: 'Update Book Copy', bookinstance: results.bookinstance, book_list: results.books});
+
+    });
+
 };
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: BookInstance update POST');
-};
+exports.bookinstance_update_post = [
+
+    // Validate and sanitise fields.
+    body('book', 'Please choose a boook').trim().isLength({ min: 1 }).escape(),
+    body('imprint', 'Please provide an imprint description').trim().isLength({ min: 1 }).escape(),
+    body('due_back', 'Wrong date format').trim().escape(),
+    body('status', 'Please select status').trim().isLength({ min: 1 }).escape(),
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        // Create a Book object with escaped/trimmed data and old id.
+        var bookinstance = new BookInstance(
+          { book: req.body.book,
+            imprint: req.body.imprint,
+            status: req.body.status,
+            due_back: req.body.due_back,
+            _id:req.params.id //This is required, or a new ID will be assigned!
+           });
+
+        if (!errors.isEmpty()) {
+            //There are errors, Render form again with sanitized values/error messages
+            
+            //Get Bookinstance from form & book list... 
+            async.parallel({
+                bookinstance: function(callback) {
+                    BookInstance.findById(req.params.id).populate('book').exec(callback);
+                },
+                books: function(callback) {
+                    Book.find(callback);
+                },
+            }, function (err, results) {
+                if (err) {return next(err); }
+                if (results.bookinstance == null) { //No results
+                    var err = new Error('Copy not found');
+                    err.status = 404;
+                    return next(err);
+                 }
+                //Success
+                res.render('bookinstance_form', {title: 'Update Book Copy', bookinstance: results.bookinstance, book_list: results.books, errors: errors.array()});
+            });
+
+        }
+        else {
+            // Data from form is valid. Update the record.
+            BookInstance.findByIdAndUpdate(req.params.id, bookinstance, {}, function (err,thecopy) {
+                if (err) { return next(err); }
+                   // Successful - redirect to book detail page.
+                   res.redirect(thecopy.url);
+                });
+        }
+    }
+];
