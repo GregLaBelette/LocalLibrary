@@ -1,39 +1,39 @@
 extends layout
 
 block content
-  h1.text-center.text-white.bg-primary.p-3.mt-1.mb-3.rounded(style = 'font-size: 300%')= title
+  h1.main-title.text-center.text-white.p-3.mt-1.mb-3.rounded(style = 'font-size: 300%')= title
 
   div.text-center.w-50.ml-auto.mr-auto.mb-5
     p Welcome to #[em LocalLibrary], a very basic Express website developed as a tutorial example on the Mozilla Developer Network.
     hr
 
   if error
-    h2 Error getting dynamic content.
+    h3 Error getting dynamic content.
   else
-    h2 The library has the following record counts:
+    h3 The library has the following record counts:
 
     div.mt-5
-      h5
+      h6
         span.text-dark.fas.fa-book-open
         a.ml-2(href="/catalog/books") Books: 
         span !{data.book_count}
       
-      h5
+      h6
         span.text-dark.fas.fa-copy
         a.ml-2(href="/catalog/books") Copies: 
         span !{data.book_instance_count}
 
-      h5
+      h6
         span.text-dark.fas.fa-thumbs-up
         a.ml-2(href="/catalog/books") Copies available: 
         span !{data.book_instance_available_count}
 
-      h5
+      h6
         span.text-dark.fas.fa-pen-nib
         a.ml-2(href="/catalog/books") Authors: 
         span !{data.author_count}
 
-      h5
+      h6
         span.text-dark.fab.fa-font-awesome-flag
         a.ml-2(href="/catalog/books") Genres: 
         span !{data.genre_count}

@@ -1,3 +1,23 @@
+body {
+    font-family: 'Urbanist';
+    background: linear-gradient(-45deg, rgba(256,256,256,0.75), rgba(256,256,256,0.75)), url(../images/books-15.jpg);
+    background-position: cover;
+}
+
+option {
+    font-family:  'Urbanist' !Important;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 300%;
+}
+
+.main-title {
+    letter-spacing: 0.2em;
+    background-color:  #1B4079;
+}
+
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
@@ -12,8 +32,27 @@
     width: 100%;
 }
 
+a {
+    color: #1B4079;
+}
+
+.text-primary {
+    color:  #1B4079 !important;
+}
+
 a:hover {
     text-decoration: none;
+    color:  #0F2443;
+}
+
+.btn-primary {
+    background-color: #1B4079;
+    border-color:  #1B4079;
+}
+
+.btn-primary:hover {
+    background-color: #0F2443;
+    border-color:  #0F2443;
 }
 
 li {
