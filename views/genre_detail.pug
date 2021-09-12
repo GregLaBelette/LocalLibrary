@@ -5,7 +5,7 @@ block content
   h1 Genre: #{genre.name}
 
   a.btn.btn-primary(href=genre.url+'/update') Update genre
-  a.btn.btn-danger(href=genre.url+'/delete') Delete genre
+  a.btn.btn-dark(href=genre.url+'/delete') Delete genre
   hr
 
   div(style='margin-left:20px;margin-top:20px')
@@ -17,6 +17,7 @@ block content
         dt
           a(href=book.url) #{book.title}
         dd #{book.summary}
+        hr
 
       else
         p This genre has no books

@@ -1,25 +1,49 @@
 extends layout
 
 block content
-  h1= title
+  h1.mb-5= title
 
-  a.btn.btn-primary(href="/catalog/bookinstance/create") Create new copy
+  a.btn.btn-primary.mb-5(href="/catalog/bookinstance/create") Create new book copy
 
-  hr
+  div.container-fluid
 
-  ul
     - bookinstance_list.sort(function(a, b) {let textA = a.book.title.toUpperCase(); let textB = b.book.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+
     each val in bookinstance_list
-      li
-        a(href=val.url) #{val.book.title} : #{val.imprint} - 
-        if val.status=='Available'
-          span.text-success #{val.status}
-        else if val.status=='Maintenance'
-          span.text-danger #{val.status}
-        else
-          span.text-warning #{val.status}
-        if val.status!='Available'
-          span  (Due: #{val.due_back_formatted} )
+      div.row
+        div.col-0.txt-dark.d-flex.align-items-center
+          span.fas.fa-copy
+
+        div.col.d-flex.align-items-center
+          a(href=val.url) #{val.book.title}
+
+        div.col.d-flex.align-items-center
+          span #{val.imprint}
+
+        div.col-0.d-flex.align-items-center
+          if val.status=="Available"
+            span.text-primary.fas.fa-thumbs-up
+          else if val.status=="Maintenance"
+            span.text-danger.fas.fa-briefcase-medical
+          else if val.status=="Loaned"
+            span.text-dark.fas.fa-book-reader
+          else if val.status=="Reserved"
+            span.text-warning.fas.fa-lock
+
+        div.col.d-flex.align-items-center
+          span #{val.status}
+
+        div.col.d-flex.align-items-center
+          if val.status !="Available"
+            span Due: #{val.due_back_formatted}
+          else
+            span - 
+
+        div.col-0.d-flex.align-items-center
+          a.btn.btn-secondary.mt-0.mb-0(href=`/catalog/bookinstance/${val._id}/update`) Update
+          a.btn.btn-dark.mt-0.mb-0(href=`/catalog/bookinstance/${val._id}/delete`) Delete
+
+      hr
 
     else
       li There are no book copies in this library.

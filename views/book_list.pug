@@ -3,16 +3,29 @@ extends layout
 block content
   h1= title
 
-  a.btn.btn-primary(href="/catalog/book/create") Create new book
+  a.btn.btn-primary.mb-5(href="/catalog/book/create") Create new book
 
-  hr
+  div.container-fluid
 
-  ul
     - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+
     each book in book_list
-      li
-        a(href=book.url) #{book.title}
-        |  (#{book.author.name})
+      div.row
+        div.col-0.d-flex.align-items-center
+          span.fas.fa-book-open
+
+        div.col.d-flex.align-items-center
+          a(href=book.url) #{book.title}
+
+        div.col.d-flex.align-items-center
+          span #{book.author.name}
+
+        div.col-0.d-flex.align-items-center
+          a.btn.btn-secondary.mt-0.mb-0(href=`/catalog/book/${book._id}/update`) Update
+          a.btn.btn-dark.mt-0.mb-0(href=`/catalog/book/${book._id}/delete`) Delete
+
+      hr
 
     else
-      li There are no books.
+      span There are no books here...
+

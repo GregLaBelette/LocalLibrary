@@ -3,14 +3,24 @@ extends layout
 block content
 	h1= title
 
-	a.btn.btn-primary(href="/catalog/genre/create") Create new genre
+	a.btn.btn-primary.mb-5(href="/catalog/genre/create") Create new genre
 
-	hr
-
-	ul
+	div.container-fluid
 		each genre in genre_list
-			li
-				a(href=genre.url) #{genre.name}
+			div.row
+				div.col-0.txt-dark.d-flex.align-items-center
+					span.fab.fa-font-awesome-flag
+
+				div.col.d-flex.align-items-center
+						a(href=genre.url) #{genre.name}
+
+				div.col-0.d-flex.align-items-center
+					a.btn.btn-secondary.mt-0.mb-0(href=`/catalog/genre/${genre._id}/update`) Update
+
+				div.col-0.d-flex.align-items-center
+					a.btn.btn-dark.mt-0.mb-0(href=`/catalog/genre/${genre._id}/delete`) Delete
+
+			hr
 
 		else
-			li There are no genres.
+			span There are no genres.

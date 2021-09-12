@@ -38,9 +38,9 @@ block content
       label Genre:
       div
         for genre in genres
-          div(style='display: inline; padding-right:10px;')
+          div(style='display: inline; padding-right:10px; margin-right')
             input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked=genre.checked )
-            label(for=genre._id) #{genre.name}
+            label.ml-2(for=genre._id) #{genre.name}
     
     button.btn.btn-primary(type='submit') Submit
 

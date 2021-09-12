@@ -188,7 +188,7 @@ exports.author_update_post = [
         //Extract the validation errors from a request.
         const errors = validationResult(req);
 
-        //Create an Author object with escape / trimmed data & old ID
+        //Create an Author object with escaped / trimmed data & old ID
         var author = new Author(
             {
                 first_name: req.body.first_name,

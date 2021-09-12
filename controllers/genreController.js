@@ -154,11 +154,60 @@ exports.genre_delete_post = function(req, res) {
 };
 
 // Display Genre update form on GET.
-exports.genre_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre update GET');
+exports.genre_update_get = function(req, res, next) {
+    
+    Genre.findById(req.params.id)
+    .exec(function(err, genre) {
+        if (err) { return next(err) }
+        if (genre==null) {
+            var err = new Error('Genre not found');
+            err.status = 404;
+            return next(err);
+        }
+        //Sucess, render...
+        res.render('genre_form', {title: 'Update Genre', genre: genre});
+    })
 };
 
 // Handle Genre update on POST.
-exports.genre_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre update POST');
-};
+exports.genre_update_post = [
+
+    //Validate and sanitise field
+    body('name', 'Please provide genre name').trim().isLength({min: 1}).escape(),
+
+    //Process request after validation & sanitization
+    (req, res, next) => {
+
+        //Extract the validation errors from a request
+        const errors = validationResult(req);
+
+        //Create a genre with escaped / trimmed data & old ID
+        var genre = new Genre(
+        {
+            name: req.body.name,
+            _id: req.params.id // Required for the new genre not to generate a new ID
+        })
+
+        if (!errors.isEmpty()) {
+
+            //In case of errors, re-render with sanitized genre value & error messages
+            Genre.findById(req.params.id)
+            .exec(function (err, genre) {
+                if (err) { return next(err); }
+                res.render('genre_form', {title: 'Update Genre', genre: genre, errors: errors.array()});
+            })
+            return;
+        }
+        else {
+
+            //Data from form is valid, update the record
+            Genre.findByIdAndUpdate(req.params.id, genre, {}, function (err, theGenre) {
+                if (err) {return next(err) };
+
+                //Successful - redirect to Genre Detail page
+                res.redirect(theGenre.url);
+            });
+        }
+    }
+
+]

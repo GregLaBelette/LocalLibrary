@@ -3,25 +3,37 @@ extends layout
 block content
 	h1= title
 
-	a.btn.btn-primary(href="/catalog/author/create") Create new author
+	a.btn.btn-primary.mb-5(href="/catalog/author/create") Create new author
 
-	hr
+	div.container-fluid
 
-	ul
 		each author in author_list
-			li
-				if !author.date_of_birth
-					a(href=author.url) #{author.name} 
-					| Life dates not provided
+			div.row
+				div.col-0.txt-dark.d-flex.align-items-center
+					span.fas.fa-pen-nib
 
-				else
-					if author.date_of_death
-						a(href=author.url) #{author.name} 
-						| (#{author.date_of_birth_formatted} - #{author.date_of_death_formatted})
+				div.col.d-flex.align-items-center
+					a(href=author.url) #{author.name} 
+
+				div.col.d-flex.align-items-center
+
+					if !author.date_of_birth
+						span Life dates not provided
 
 					else
-						a(href=author.url) #{author.name} 
-						| (#{author.date_of_birth_formatted} - Still living)
+						if author.date_of_death
+							span (#{author.date_of_birth_formatted} - #{author.date_of_death_formatted})
+
+						else
+							span (#{author.date_of_birth_formatted} - Still living)
+
+				div.col-0.d-flex.align-items-center
+					a.btn.btn-secondary.mt-0.mb-0(href=`/catalog/author/${author._id}/update`) Update
+
+				div.col-0.d-flex.align-items-center
+					a.btn.btn-dark.mt-0.mb-0(href=`/catalog/author/${author._id}/delete`) Delete
+
+			hr
 
 		else
-			li There are no authors.
+			span There are no authors.

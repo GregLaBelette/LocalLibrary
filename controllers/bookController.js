@@ -327,7 +327,7 @@ exports.book_update_post = [
                         results.genres[i].checked='true';
                     }
                 }
-                res.render('book_form', { title: 'Update Book',authors: results.authors, genres: results.genres, book: book, errors: errors.array() });
+                res.render('book_form', { title: 'Update Book', authors: results.authors, genres: results.genres, book: book, errors: errors.array() });
             });
             return;
         }
@@ -335,8 +335,9 @@ exports.book_update_post = [
             // Data from form is valid. Update the record.
             Book.findByIdAndUpdate(req.params.id, book, {}, function (err,thebook) {
                 if (err) { return next(err); }
-                   // Successful - redirect to book detail page.
-                   res.redirect(thebook.url);
+                
+                // Successful - redirect to book detail page.
+                res.redirect(thebook.url);
                 });
         }
     }

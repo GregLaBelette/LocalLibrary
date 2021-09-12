@@ -10,15 +10,24 @@ block content
 
   p #[strong Status:] 
     if bookinstance.status=='Available'
-      span.text-success #{bookinstance.status}
+      span.text-primary.fas.fa-thumbs-up
+      span  #{bookinstance.status}
+
     else if bookinstance.status=='Maintenance'
-      span.text-danger #{bookinstance.status}
-    else
-      span.text-warning #{bookinstance.status}
+      span.text-danger.fas.fa-briefcase-medical
+      span  #{bookinstance.status}
+
+    else if bookinstance.status=='Loaned'
+      span.text-dark.fas.fa-book-reader
+      span  #{bookinstance.status}
+
+    else if bookinstance.status=='Reserved'
+      span.text-warning.fas.fa-lock
+      span  #{bookinstance.status}
 
   if bookinstance.status!='Available'
     p #[strong Due back:] #{bookinstance.due_back_formatted}
 
   hr
-  a.btn.btn-primary(href=bookinstance.url+'/update') Update copy
-  a.btn.btn-danger(href=bookinstance.url+'/delete') Delete copy
+  a.btn.btn-secondary(href=bookinstance.url+'/update') Update copy
+  a.btn.btn-dark(href=bookinstance.url+'/delete') Delete copy
