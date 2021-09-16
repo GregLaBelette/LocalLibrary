@@ -14,7 +14,7 @@ var testRouter = require('./routes/test');
 var mongoose = require('mongoose');
 
 var dev_db_url = 'mongodb+srv://gregLaBelette:CDauguet90@mdn-express.cpoqm.mongodb.net/local_library?retryWrites=true&w=majority';
-var mongoDB = process.env.MOGODB_URI || dev_db_url;
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 
 var db = mongoose.connection;
