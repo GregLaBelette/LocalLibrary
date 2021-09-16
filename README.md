@@ -11,4 +11,4 @@ First Express.JS tutorial app from Mozilla Developpers Network's "Learn Web Deve
 - Express Validator package
 - Deployment to Heroku
 
-Please visit LocalLibrary <a href='https://gentle-chamber-91491.herokuapp.com'>here</a>.
+Please visit LocalLibrary <a href='https://greglabelette-locallibrary.herokuapp.com'>here</a>.
