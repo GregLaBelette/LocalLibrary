@@ -1,6 +1,6 @@
 body {
     font-family: 'Urbanist';
-    background: linear-gradient(-45deg, rgba(256,256,256,0.75), rgba(256,256,256,0.75)), url(../images/books-15.jpg);
+    background: linear-gradient(-45deg, rgba(256,256,256,0.75), rgba(256,256,256,0.75)), url("https://picsum.photos/2000/3000");
     background-position: cover;
 }
 
