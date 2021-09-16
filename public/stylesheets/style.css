@@ -1,8 +1,6 @@
 body {
     font-family: 'Urbanist';
-    background: linear-gradient(-45deg, rgba(256,256,256,0.75), rgba(256,256,256,0.75)), url("https://picsum.photos/1920");
-    background-size: cover;
-    background-position: center;
+    background-color: #DCE4EB;
 }
 
 option {
