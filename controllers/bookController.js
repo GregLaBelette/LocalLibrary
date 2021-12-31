@@ -170,7 +170,7 @@ exports.book_create_post = [
               }
               else {
 
-            book.save(function (err) {
+                book.save(function (err) {
                 if (err) { return next(err); }
                 // Successful - redirect to new author record.
                 res.redirect(book.url);
